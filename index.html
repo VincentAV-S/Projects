@@ -290,8 +290,7 @@
         // Build absolute URL and set zoom like Portfolio: page-fit (desktop) / page-width (mobile)
         const absoluteUrl = new URL(item.url, window.location.href).href;
         const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
-        const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
-                          encodeURIComponent(absoluteUrl) + `#page=1&zoom=${zoomMode}`;
+        const viewerUrl = absoluteUrl + `#page=1&zoom=${zoomMode}`;
 
         // Bar WITHOUT duplicate buttons or tags
         const viewerHtml = `
