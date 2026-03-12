@@ -116,7 +116,7 @@
         date: '2024-11-17',
         tags: ['Newsletters'],
         desc: 'Colonial Home Exteriors; My 30th Birthday; Black Coarse Pepper; Avocado Bread; Too Good To Go.',
-        url: 'N000001  46SUN20241117.pdf',
+        url: 'N000001-46SUN20241117.pdf',
         kind: 'pdf'
       },
       {
@@ -125,7 +125,7 @@
         date: '2024-11-28',
         tags: ['Newsletters'],
         desc: 'The Big Dig; The Wealth Gap Near Me; My Potential Land; $1000 Per Month in Bogata, Columbia; Lex Fridman; Kai Trump.',
-        url: 'N000002   48THU20251128.pdf',
+        url: 'N000002-48THU20251128.pdf',
         kind: 'pdf'
       },
       {
@@ -134,7 +134,7 @@
         date: '2024-12-07',
         tags: ['Newsletters'],
         desc: 'The Missing Piece in My Life; Jeff Bezos is Still Fascinating; A Watch Brand for Prisoners of Time.',
-        url: 'N000003   49SAT20251207.pdf',
+        url: 'N000003-49SAT20251207.pdf',
         kind: 'pdf'
       },
       {
@@ -143,7 +143,7 @@
         date: '2024-12-25',
         tags: ['Newsletters'],
         desc: '96 Hours; An Update on My Custom Vanity Desk; Vintage Textbooks; Gregg Shorthand and Stenography; Anything for a Beautiful Jew.',
-        url: 'N000004   52WED20251225.pdf',
+        url: 'N000004-52WED20251225.pdf',
         kind: 'pdf'
       },
       {
@@ -152,7 +152,7 @@
         date: '2025-01-12',
         tags: ['Newsletters'],
         desc: 'A Kitchen Commotion; My New Bedside Table.',
-        url: 'N000005   02SUN20250112.pdf',
+        url: 'N000005-02SUN20250112.pdf',
         kind: 'pdf'
       },
       {
@@ -161,7 +161,7 @@
         date: '2025-01-19',
         tags: ['Newsletters'],
         desc: 'New Books; Desire, Utility, Scarcity = Value = Economics.',
-        url: 'N000006   03SUN20250119.pdf',
+        url: 'N000006-03SUN20250119.pdf',
         kind: 'pdf'
       },
       {
@@ -170,7 +170,7 @@
         date: '2025-02-02',
         tags: ['Newsletters'],
         desc: 'Feeling Like the Richest Man in the Universe; High Guard; Philly Shell.',
-        url: 'N000007   05SUN20250202.pdf',
+        url: 'N000007-05SUN20250202.pdf',
         kind: 'pdf'
       },
       {
@@ -179,7 +179,7 @@
         date: '2025-07-05',
         tags: ['Newsletters'],
         desc: 'Sybil from Grantham; The Other Side; How to Get the Job.',
-        url: 'N000009   27SAT20250705.pdf',
+        url: 'N000009-27SAT20250705.pdf',
         kind: 'pdf'
       },
       {
@@ -188,7 +188,7 @@
         date: '2025-07-13',
         tags: ['Newsletters'],
         desc: 'On the Search for Relief; The Capitalist and the Laborer.',
-        url: 'N000010   28SUN20250713.pdf',
+        url: 'N000010-28SUN20250713.pdf',
         kind: 'pdf'
       },
       {
@@ -197,7 +197,7 @@
         date: '2025-07-26',
         tags: ['Newsletters'],
         desc: 'Piano; Life Calendar; New Books from the Thrift Store; Television.',
-        url: 'N000011   30SAT20250726.pdf',
+        url: 'N000011-30SAT20250726.pdf',
         kind: 'pdf'
       },
       {
@@ -206,7 +206,7 @@
         date: '2025-08-16',
         tags: ['Newsletters'],
         desc: 'Stitching; Stopwatch; Sketching; Sphaghetti.',
-        url: 'N000012   33SAT20250816.pdf',
+        url: 'N000012-33SAT20250816.pdf',
         kind: 'pdf'
       },
       {
@@ -215,7 +215,7 @@
         date: '2025-10-02',
         tags: ['Newsletters'],
         desc: 'Seeking Something Missing--Missing Something Left Behind; New Books; Old Dogs; Red Morphology; Donating Versus Storing; The Arnold Bennett 7.5 Mehtod and The David Allen Prioritization, Capability, and Availability Principle.',
-        url: 'N000013   40THU20251002.pdf',
+        url: 'N000013-40THU20251002.pdf',
         kind: 'pdf'
       },
       {
@@ -224,7 +224,7 @@
       date: '2025-10-18',            // use the real date
       tags: ['Newsletters'],
       desc: 'My Newfound Fame; In the Office of Principles; Magnetism; Shark Killer.',
-      url: 'N000014   42SAT20251018.pdf',  // match your exact filename
+      url: 'N000014-42SAT20251018.pdf',  // match your exact filename
       kind: 'pdf'
       },
       {
@@ -233,7 +233,7 @@
       date: '2025-11-22',            // use the real date
       tags: ['Newsletters'],
       desc: 'Boxes; Counterbalancing and Postpartum Depression.',
-      url: 'N000015   47SAT20251122.pdf',  // match your exact filename
+      url: 'N000015-47SAT20251122.pdf',  // match your exact filename
       kind: 'pdf'
       },
       {
@@ -242,7 +242,7 @@
       date: '2026-01-18',            // use the real date
       tags: ['Newsletters'],
       desc: 'Mulan - Poem; On Pain and Discipline; Self-Identity; Interlude 1; On Forgetfulness.',
-      url: 'N000016   03SUN20260119.pdf',  // match your exact filename
+      url: 'N000016-03SUN20260119.pdf',  // match your exact filename
       kind: 'pdf'
       }
     ];
@@ -290,8 +290,7 @@
         // Build absolute URL and set zoom like Portfolio: page-fit (desktop) / page-width (mobile)
         const absoluteUrl = new URL(item.url, window.location.href).href;
         const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
-        const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
-                          encodeURIComponent(absoluteUrl) + `#page=1&zoom=${zoomMode}`;
+        const viewerUrl = absoluteUrl;
 
         // Bar WITHOUT duplicate buttons or tags
         const viewerHtml = `
