@@ -282,30 +282,28 @@
           `}
         </div>`;
 
-// ---- Inline viewer for PDFs (ALWAYS visible, not collapsible) ----
-if (item.kind === 'pdf') {
-  const box = document.createElement('div');
-  box.className = 'pdfWrap';
+      // ---- Inline viewer for PDFs (ALWAYS visible, not collapsible) ----
+      if (item.kind === 'pdf') {
+        const box = document.createElement('div');
+        box.className = 'pdfWrap';
 
-  const absoluteUrl = new URL(item.url, window.location.href).href;
-  const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
+        // Build absolute URL and set zoom like Portfolio: page-fit (desktop) / page-width (mobile)
+        const absoluteUrl = new URL(item.url, window.location.href).href;
+        const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
+        const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
+                          encodeURIComponent(absoluteUrl) + `#page=1&zoom=${zoomMode}`;
 
-  const viewerUrl =
-    'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
-    encodeURIComponent(absoluteUrl) +
-    `#page=1&zoom=${zoomMode}`;
+        // Bar WITHOUT duplicate buttons or tags
+        const viewerHtml = `
+          <div class="pdfBar">
+            <span class="ghost">Inline preview</span>
+          </div>
+          <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
+        `;
 
-  const viewerHtml = `
-    <div class="pdfBar">
-      <span class="ghost">Inline preview</span>
-    </div>
-    <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
-  `;
-
-  box.innerHTML = viewerHtml;
-  el.appendChild(box);
-}
-  
+        box.innerHTML = viewerHtml;
+        el.appendChild(box);
+      }
 
       return el;
     }
