@@ -297,7 +297,9 @@
           <div class="pdfBar">
             <span class="ghost">Inline preview</span>
           </div>
-          <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
+          <object class="pdfFrame" data="${viewerUrl}" type="application/pdf">
+          <iframe class="pdfFrame" src="${viewerUrl}"></iframe>
+          </object>
         `;
 
         box.innerHTML = viewerHtml;
