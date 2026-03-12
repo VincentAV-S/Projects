@@ -282,20 +282,24 @@
           `}
         </div>`;
 
-      // ---- Inline viewer for PDFs (ALWAYS visible, not collapsible) ----
+// ---- Inline viewer for PDFs (ALWAYS visible, not collapsible) ----
 if (item.kind === 'pdf') {
   const box = document.createElement('div');
   box.className = 'pdfWrap';
 
   const absoluteUrl = new URL(item.url, window.location.href).href;
   const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
-  const viewerUrl = absoluteUrl + `#page=1&zoom=${zoomMode}`;
+
+  const viewerUrl =
+    'https://mozilla.github.io/pdf.js/web/viewer.html?file=' +
+    encodeURIComponent(absoluteUrl) +
+    `#page=1&zoom=${zoomMode}`;
 
   const viewerHtml = `
     <div class="pdfBar">
       <span class="ghost">Inline preview</span>
     </div>
-    <embed class="pdfFrame" src="${viewerUrl}" type="application/pdf">
+    <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
   `;
 
   box.innerHTML = viewerHtml;
