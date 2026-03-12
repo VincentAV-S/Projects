@@ -283,25 +283,24 @@
         </div>`;
 
       // ---- Inline viewer for PDFs (ALWAYS visible, not collapsible) ----
-      if (item.kind === 'pdf') {
-        const box = document.createElement('div');
-        box.className = 'pdfWrap';
+if (item.kind === 'pdf') {
+  const box = document.createElement('div');
+  box.className = 'pdfWrap';
 
-        // Build absolute URL and set zoom like Portfolio: page-fit (desktop) / page-width (mobile)
-        const absoluteUrl = new URL(item.url, window.location.href).href;
-        const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
-        const viewerUrl = absoluteUrl + `#page=1&zoom=${zoomMode}`;
+  const absoluteUrl = new URL(item.url, window.location.href).href;
+  const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
+  const viewerUrl = absoluteUrl + `#page=1&zoom=${zoomMode}`;
 
-        // Bar WITHOUT duplicate buttons or tags
-        const viewerHtml = `
-          <div class="pdfBar">
-            <span class="ghost">Inline preview</span>
-          </div>
-          <object class="pdfFrame" data="${viewerUrl}" type="application/pdf">
-          <iframe class="pdfFrame" src="${viewerUrl}"></iframe>
-          </object>
-        `;
+  const viewerHtml = `
+    <div class="pdfBar">
+      <span class="ghost">Inline preview</span>
+    </div>
+    <embed class="pdfFrame" src="${viewerUrl}" type="application/pdf">
+  `;
 
+  box.innerHTML = viewerHtml;
+  el.appendChild(box);
+}
         box.innerHTML = viewerHtml;
         el.appendChild(box);
       }
