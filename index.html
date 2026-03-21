@@ -130,7 +130,8 @@
     
     .articleList ul {
       margin: 0;
-      padding-left: 16px;
+      padding-left: 0;
+      list-style: none; /* removes bullets */
     }
     
     .articleList li {
@@ -411,7 +412,7 @@ function renderItem(item){
 
     ${item.articles ? `
       <div class="articleList">
-        <div class="articleLabel">Contents</div>
+        <div class="articleLabel">Articles</div>
         <ul>
           ${item.articles.map((a,i)=> `<li>${i+1}. ${escapeHTML(a)}</li>`).join('')}
         </ul>
