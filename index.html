@@ -67,11 +67,29 @@
     .btn{background:#1d2230; border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:10px; font-size:14px; cursor:pointer}
     .btn:hover{border-color:#3a4360}
 
-    /* Inline PDF viewer (non-collapsible) */
-    .pdfWrap{margin-top:12px; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#0c0f14}
-    .pdfBar{display:flex; align-items:center; gap:10px; padding:8px; border-bottom:1px solid var(--border); background:#0d1117}
-    .pdfBar .ghost{margin-right:auto; color:#9aa3b2; font-size:12px}
-    .pdfFrame{width:100%; height:82vh; border:0; display:block; background:#0c0f14}
+      .pdfPreview {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0c0f14;
+    }
+    
+    .pdfPreview img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .pdfFallback {
+    width: 100%;
+    aspect-ratio: 8.5 / 11; /* mimics a standard page */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 14px;
+    background: #0c0f14;
+    }
 
     /* Footer */
     footer{max-width:1100px; margin:40px auto 60px; padding:0 18px; color:var(--muted); font-size:12px}
@@ -81,7 +99,7 @@
       .avatar{width:28px; height:28px}
       .title{font-size:15px}
       .desc{font-size:14px}
-      .pdfFrame{height:70vh}
+    
     }
   </style>
 </head>
@@ -261,52 +279,49 @@
       }
     }
 
-    function renderItem(item){
-      const el = document.createElement('article'); el.className='item';
+        function renderItem(item){
+      const el = document.createElement('article'); 
+      el.className='item';
+    
       const d = new Date(item.date);
-      const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
-
-      // Build the header (no filter chips)
+      const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {
+        year:'numeric', month:'long', day:'numeric'
+      });
+    
+      // Build image filename automatically
+      const imageUrl = item.url.replace('.pdf', '_p1.jpg');
+    
       el.innerHTML = `
         <div class="itemHeader">
           <h3>${escapeHTML(item.title)}</h3>
           <div class="meta">${dateText}</div>
         </div>
+    
         ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
-        <div class="actions">
-          ${item.kind === 'pdf' ? `
-            <a class="btn" href="${item.url}" download>Download PDF</a>
-            <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
-          ` : `
-            <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open</a>
-          `}
-        </div>`;
-
-      // ---- Inline viewer for PDFs (ALWAYS visible, not collapsible) ----
-      if (item.kind === 'pdf') {
-        const box = document.createElement('div');
-        box.className = 'pdfWrap';
-
-        // Build absolute URL and set zoom like Portfolio: page-fit (desktop) / page-width (mobile)
-        const absoluteUrl = new URL(item.url, window.location.href).href;
-        const zoomMode = window.innerWidth < 640 ? 'page-width' : 'page-fit';
-        const viewerUrl = '/web/viewer.html?file=' +
-        encodeURIComponent(absoluteUrl) + `#page=1&zoom=${zoomMode}`;
-
-        // Bar WITHOUT duplicate buttons or tags
-        const viewerHtml = `
-          <div class="pdfBar">
-            <span class="ghost">Inline preview</span>
+    
+        <!-- IMAGE PREVIEW (replaces iframe) -->
+        <div class="pdfPreview">
+          <a href="${item.url}" target="_blank" rel="noopener">
+            <img src="${imageUrl}" 
+                 alt="${escapeHTML(item.title)} preview"
+                 onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
+          </a>
+        
+          <div class="pdfFallback" style="display:none;">
+            Preview unavailable at the moment, but you can still view or download the PDF.
           </div>
-          <iframe class="pdfFrame" loading="lazy" src="${viewerUrl}"></iframe>
-        `;
-
-        box.innerHTML = viewerHtml;
-        el.appendChild(box);
-      }
-
+        </div>
+    
+        <div class="actions">
+          <a class="btn" href="${item.url}" download>Download PDF</a>
+          <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
+        </div>
+      `;
+    
       return el;
     }
+
+
 
     // escape helper
     function escapeHTML(s){
