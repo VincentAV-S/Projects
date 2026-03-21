@@ -116,6 +116,28 @@
     padding: 10px;
     }
 
+    .articleList {
+  margin: 10px 0 14px;
+    }
+    
+    .articleLabel {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    
+    .articleList ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+    
+    .articleList li {
+      margin: 3px 0;
+      line-height: 1.4;
+    }
+
     /* Footer */
     footer{max-width:1100px; margin:40px auto 60px; padding:0 18px; color:var(--muted); font-size:12px}
 
@@ -150,228 +172,281 @@
     <p>Tip: PDFs render inline below each post. Use the Download/Open buttons in the header of each post.</p>
   </footer>
 
-  <script>
-    /* ===== CONTENT DATA ===== */
-    const ITEMS = [
-      {
-        id: 'n000001',
-        title: 'Newsletter No. 1',
-        date: '2024-11-17',
-        tags: ['Newsletters'],
-        desc: 'Colonial Home Exteriors; My 30th Birthday; Black Coarse Pepper; Avocado Bread; Too Good To Go.',
-        url: 'N000001-46SUN20241117.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000002',
-        title: 'Newsletter No. 2',
-        date: '2024-11-28',
-        tags: ['Newsletters'],
-        desc: 'The Big Dig; The Wealth Gap Near Me; My Potential Land; $1000 Per Month in Bogata, Columbia; Lex Fridman; Kai Trump.',
-        url: 'N000002-48THU20251128.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000003',
-        title: 'Newsletter No. 3',
-        date: '2024-12-07',
-        tags: ['Newsletters'],
-        desc: 'The Missing Piece in My Life; Jeff Bezos is Still Fascinating; A Watch Brand for Prisoners of Time.',
-        url: 'N000003-49SAT20251207.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000004',
-        title: 'Newsletter No. 4',
-        date: '2024-12-25',
-        tags: ['Newsletters'],
-        desc: '96 Hours; An Update on My Custom Vanity Desk; Vintage Textbooks; Gregg Shorthand and Stenography; Anything for a Beautiful Jew.',
-        url: 'N000004-52WED20251225.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000005',
-        title: 'Newsletter No. 5',
-        date: '2025-01-12',
-        tags: ['Newsletters'],
-        desc: 'A Kitchen Commotion; My New Bedside Table.',
-        url: 'N000005-02SUN20250112.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000006',
-        title: 'Newsletter No. 6',
-        date: '2025-01-19',
-        tags: ['Newsletters'],
-        desc: 'New Books; Desire, Utility, Scarcity = Value = Economics.',
-        url: 'N000006-03SUN20250119.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000007',
-        title: 'Newsletter No. 7',
-        date: '2025-02-02',
-        tags: ['Newsletters'],
-        desc: 'Feeling Like the Richest Man in the Universe; High Guard; Philly Shell.',
-        url: 'N000007-05SUN20250202.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000009',
-        title: 'Newsletter No. 9',
-        date: '2025-07-05',
-        tags: ['Newsletters'],
-        desc: 'Sybil from Grantham; The Other Side; How to Get the Job.',
-        url: 'N000009-27SAT20250705.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000010',
-        title: 'Newsletter No. 10',
-        date: '2025-07-13',
-        tags: ['Newsletters'],
-        desc: 'On the Search for Relief; The Capitalist and the Laborer.',
-        url: 'N000010-28SUN20250713.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000011',
-        title: 'Newsletter No. 11',
-        date: '2025-07-26',
-        tags: ['Newsletters'],
-        desc: 'Piano; Life Calendar; New Books from the Thrift Store; Television.',
-        url: 'N000011-30SAT20250726.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000012',
-        title: 'Newsletter No. 12',
-        date: '2025-08-16',
-        tags: ['Newsletters'],
-        desc: 'Stitching; Stopwatch; Sketching; Sphaghetti.',
-        url: 'N000012-33SAT20250816.pdf',
-        kind: 'pdf'
-      },
-      {
-        id: 'n000013',
-        title: 'Newsletter No. 13',
-        date: '2025-10-02',
-        tags: ['Newsletters'],
-        desc: 'Seeking Something Missing--Missing Something Left Behind; New Books; Old Dogs; Red Morphology; Donating Versus Storing; The Arnold Bennett 7.5 Mehtod and The David Allen Prioritization, Capability, and Availability Principle.',
-        url: 'N000013-40THU20251002.pdf',
-        kind: 'pdf'
-      },
-      {
-      id: 'n000014',
-      title: 'Newsletter No. 14',
-      date: '2025-10-18',            // use the real date
-      tags: ['Newsletters'],
-      desc: 'My Newfound Fame; In the Office of Principles; Magnetism; Shark Killer.',
-      url: 'N000014-42SAT20251018.pdf',  // match your exact filename
-      kind: 'pdf'
-      },
-      {
-      id: 'n000015',
-      title: 'Newsletter No. 15',
-      date: '2025-11-22',            // use the real date
-      tags: ['Newsletters'],
-      desc: 'Boxes; Counterbalancing and Postpartum Depression.',
-      url: 'N000015-47SAT20251122.pdf',  // match your exact filename
-      kind: 'pdf'
-      },
-      {
-      id: 'n000016',
-      title: 'Newsletter No. 16',
-      date: '2026-01-18',            // use the real date
-      tags: ['Newsletters'],
-      desc: 'Mulan - Poem; On Pain and Discipline; Self-Identity; Interlude 1; On Forgetfulness.',
-      url: 'N000016-03SUN20260119.pdf',  // match your exact filename
-      kind: 'pdf'
-      }
-    ];
+ <script>
+/* ===== CONTENT DATA ===== */
+const ITEMS = [
+  {
+    id: 'n000001',
+    title: 'Newsletter No. 1',
+    date: '2024-11-17',
+    articles: [
+      'Colonial Home Exteriors',
+      'My 30th Birthday',
+      'Black Coarse Pepper',
+      'Avocado Bread',
+      'Too Good To Go'
+    ],
+    desc: '',
+    url: 'N000001-46SUN20241117.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000002',
+    title: 'Newsletter No. 2',
+    date: '2024-11-28',
+    articles: [
+      'The Big Dig',
+      'The Wealth Gap Near Me',
+      'My Potential Land',
+      '$1000 Per Month in Bogata, Columbia',
+      'Lex Fridman',
+      'Kai Trump'
+    ],
+    desc: '',
+    url: 'N000002-48THU20251128.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000003',
+    title: 'Newsletter No. 3',
+    date: '2024-12-07',
+    articles: [
+      'The Missing Piece in My Life',
+      'Jeff Bezos is Still Fascinating',
+      'A Watch Brand for Prisoners of Time'
+    ],
+    desc: '',
+    url: 'N000003-49SAT20251207.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000004',
+    title: 'Newsletter No. 4',
+    date: '2024-12-25',
+    articles: [
+      '96 Hours',
+      'An Update on My Custom Vanity Desk',
+      'Vintage Textbooks',
+      'Gregg Shorthand and Stenography',
+      'Anything for a Beautiful Jew'
+    ],
+    desc: '',
+    url: 'N000004-52WED20251225.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000005',
+    title: 'Newsletter No. 5',
+    date: '2025-01-12',
+    articles: [
+      'A Kitchen Commotion',
+      'My New Bedside Table'
+    ],
+    desc: '',
+    url: 'N000005-02SUN20250112.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000006',
+    title: 'Newsletter No. 6',
+    date: '2025-01-19',
+    articles: [
+      'New Books',
+      'Desire, Utility, Scarcity = Value = Economics'
+    ],
+    desc: '',
+    url: 'N000006-03SUN20250119.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000007',
+    title: 'Newsletter No. 7',
+    date: '2025-02-02',
+    articles: [
+      'Feeling Like the Richest Man in the Universe',
+      'High Guard',
+      'Philly Shell'
+    ],
+    desc: '',
+    url: 'N000007-05SUN20250202.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000009',
+    title: 'Newsletter No. 9',
+    date: '2025-07-05',
+    articles: [
+      'Sybil from Grantham',
+      'The Other Side',
+      'How to Get the Job'
+    ],
+    desc: '',
+    url: 'N000009-27SAT20250705.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000010',
+    title: 'Newsletter No. 10',
+    date: '2025-07-13',
+    articles: [
+      'On the Search for Relief',
+      'The Capitalist and the Laborer'
+    ],
+    desc: '',
+    url: 'N000010-28SUN20250713.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000011',
+    title: 'Newsletter No. 11',
+    date: '2025-07-26',
+    articles: [
+      'Piano',
+      'Life Calendar',
+      'New Books from the Thrift Store',
+      'Television'
+    ],
+    desc: '',
+    url: 'N000011-30SAT20250726.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000012',
+    title: 'Newsletter No. 12',
+    date: '2025-08-16',
+    articles: [
+      'Stitching',
+      'Stopwatch',
+      'Sketching',
+      'Spaghetti'
+    ],
+    desc: '',
+    url: 'N000012-33SAT20250816.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000013',
+    title: 'Newsletter No. 13',
+    date: '2025-10-02',
+    articles: [
+      'Seeking Something Missing—Missing Something Left Behind',
+      'New Books',
+      'Old Dogs',
+      'Red Morphology',
+      'Donating Versus Storing',
+      'The Arnold Bennett 7.5 Method',
+      'The David Allen Prioritization, Capability, and Availability Principle'
+    ],
+    desc: '',
+    url: 'N000013-40THU20251002.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000014',
+    title: 'Newsletter No. 14',
+    date: '2025-10-18',
+    articles: [
+      'My Newfound Fame',
+      'In the Office of Principles',
+      'Magnetism',
+      'Shark Killer'
+    ],
+    desc: '',
+    url: 'N000014-42SAT20251018.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000015',
+    title: 'Newsletter No. 15',
+    date: '2025-11-22',
+    articles: [
+      'Boxes',
+      'Counterbalancing and Postpartum Depression'
+    ],
+    desc: '',
+    url: 'N000015-47SAT20251122.pdf',
+    kind: 'pdf'
+  },
+  {
+    id: 'n000016',
+    title: 'Newsletter No. 16',
+    date: '2026-01-18',
+    articles: [
+      'Mulan',
+      'On Pain and Discipline',
+      'Self-Identity',
+      'Interlude 1',
+      'On Forgetfulness'
+    ],
+    desc: '',
+    url: 'N000016-03SUN20260119.pdf',
+    kind: 'pdf'
+  }
+];
 
-    const list = document.getElementById('list');
+const list = document.getElementById('list');
 
-    function render(){
-      const sorted = [...ITEMS].sort((a,b)=> new Date(b.date) - new Date(a.date));
-      list.innerHTML = '';
-      sorted.forEach(item=> list.appendChild(renderItem(item)));
-      if(!list.children.length){
-        const empty = document.createElement('p');
-        empty.className='ghost wrap';
-        empty.textContent='No items to display.';
-        list.appendChild(empty);
-      }
-    }
+function render(){
+  const sorted = [...ITEMS].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  list.innerHTML = '';
+  sorted.forEach(item=> list.appendChild(renderItem(item)));
+}
 
-        function renderItem(item){
-      const el = document.createElement('article'); 
-      el.className='item';
-    
-      const d = new Date(item.date);
-      const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {
-        year:'numeric', month:'long', day:'numeric'
-      });
-    
-      // Build image filename automatically
-      const imageUrl = item.url.replace('.pdf', '_p1.jpg');
-    
-      el.innerHTML = `
-        <div class="itemHeader">
-          <h3>${escapeHTML(item.title)}</h3>
-          <div class="meta">${dateText}</div>
-        </div>
-    
-        ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
-    
-        <!-- IMAGE PREVIEW (replaces iframe) -->
-        <div class="pdfPreview">
-          <a href="${item.url}" target="_blank" rel="noopener">
-            <img src="${imageUrl}" 
-                 alt="${escapeHTML(item.title)} preview"
-                 onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
-          </a>
-        
-          <div class="pdfFallback" style="display:none;">
-            Preview unavailable at the moment, but you can still view or download the PDF.
-          </div>
-        </div>
-    
-        <div class="actions">
-          <a class="btn" href="${item.url}" download>Download PDF</a>
-          <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
-        </div>
-      `;
-    
-      return el;
-    }
+function renderItem(item){
+  const el = document.createElement('article'); 
+  el.className='item';
 
+  const d = new Date(item.date);
+  const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {
+    year:'numeric', month:'long', day:'numeric'
+  });
 
+  const imageUrl = item.url.replace('.pdf', '_p1.jpg');
 
-    // escape helper
-    function escapeHTML(s){
-      return String(s).replace(/[&<>\"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
+  el.innerHTML = `
+    <div class="itemHeader">
+      <h3>${escapeHTML(item.title)}</h3>
+      <div class="meta">${dateText}</div>
+    </div>
 
-    // initial render
-    render();
-  </script>
-  <script>
-  (function(){
-    const header = document.querySelector('.site');
-    let hidden = false;
+    ${item.articles ? `
+      <div class="articleList">
+        <div class="articleLabel">Contents</div>
+        <ul>
+          ${item.articles.map((a,i)=> `<li>${i+1}. ${escapeHTML(a)}</li>`).join('')}
+        </ul>
+      </div>
+    ` : ''}
 
-    window.addEventListener('scroll', () => {
-      const atTop = window.scrollY <= 0;
-      if (!atTop && !hidden) {
-        header.classList.add('off');
-        hidden = true;
-      } else if (atTop && hidden) {
-        header.classList.remove('off');
-        hidden = false;
-      }
-    }, { passive: true });
-  })();
+    ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
+
+    <div class="pdfPreview">
+      <a href="${item.url}" target="_blank" rel="noopener">
+        <img src="${imageUrl}" 
+             alt="${escapeHTML(item.title)} preview"
+             onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
+      </a>
+      <div class="pdfFallback" style="display:none;">
+        Preview unavailable at the moment, but you can still view or download the PDF.
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="${item.url}" download>Download PDF</a>
+      <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
+    </div>
+  `;
+
+  return el;
+}
+
+function escapeHTML(s){
+  return String(s).replace(/[&<>\"']/g, m => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
+
+render();
 </script>
 </body>
 </html>
