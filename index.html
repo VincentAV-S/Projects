@@ -438,34 +438,49 @@ function createCarousel(images, title){
   container.className = 'pdfPreview';
 
   let index = 0;
+  let maxIndex = null; // we will discover this dynamically
+
   const img = document.createElement('img');
   img.alt = title;
 
-function load(i){
-  img.src = images[i];
+  function load(i){
+    img.src = images[i];
 
-  img.onerror = () => {
-    if(i === 0){
-      fallback.style.display = 'flex';
-      img.style.display = 'none';
-    } else {
-      index--; // step back to last valid page
-    }
-  };
-}
+    img.onerror = () => {
+      if(i === 0){
+        fallback.style.display = 'flex';
+        img.style.display = 'none';
+      } else {
+        // we've hit the end → lock maxIndex
+        maxIndex = i - 1;
+        index = maxIndex;
+        img.src = images[index];
+      }
+    };
+  }
 
   const prev = document.createElement('button');
   prev.textContent = '‹';
   prev.className = 'navBtn left';
-  prev.onclick = () => { if(index > 0){ index--; load(index); } };
+  prev.onclick = () => {
+    if(maxIndex !== null){
+      index = (index - 1 + maxIndex + 1) % (maxIndex + 1);
+    } else {
+      index = Math.max(0, index - 1);
+    }
+    load(index);
+  };
 
   const next = document.createElement('button');
   next.textContent = '›';
   next.className = 'navBtn right';
   next.onclick = () => {
-  if(index < images.length - 1){
-    index++;
-    load(index);
+    if(maxIndex !== null){
+      index = (index + 1) % (maxIndex + 1);
+      load(index);
+    } else {
+      index++;
+      load(index);
     }
   };
 
