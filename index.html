@@ -88,13 +88,14 @@
     .btn{background:#1d2230; border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:10px; font-size:14px; cursor:pointer}
     .btn:hover{border-color:#3a4360}
 
-      .pdfPreview {
+    .pdfPreview {
       margin-top: 12px;
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
       background: #0c0f14;
       aspect-ratio: 8.5 / 11;
+      position: relative;
     }
     
     .pdfPreview img {
@@ -139,6 +140,24 @@
       line-height: 1.4;
     }
 
+    .navBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      border: none;
+      color: white;
+      font-size: 20px;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+  
+  .navBtn.left { left: 8px; }
+  .navBtn.right { right: 8px; }
+  
+
+
     /* Footer */
     footer{max-width:1100px; margin:40px auto 60px; padding:0 18px; color:var(--muted); font-size:12px}
 
@@ -173,7 +192,7 @@
     <p>Tip: PDFs render inline below each post. Use the Download/Open buttons in the header of each post.</p>
   </footer>
 
- <script>
+<script>
 /* ===== CONTENT DATA ===== */
 const ITEMS = [
   {
@@ -401,64 +420,102 @@ const ITEMS = [
 
 const list = document.getElementById('list');
 
+/* ===== IMAGE LIST ===== */
+function getImageList(item){
+  const base = item.url.replace('.pdf','');
+  const images = [];
+
+  for(let i = 0; i < 50; i++){ // safe upper bound
+    images.push(`images/${base}_p${String(i).padStart(3,'0')}.webp`);
+  }
+
+  return images;
+}
+
+/* ===== CAROUSEL ===== */
+function createCarousel(images, title){
+  const container = document.createElement('div');
+  container.className = 'pdfPreview';
+
+  let index = 0;
+  const img = document.createElement('img');
+  img.alt = title;
+
+function load(i){
+  img.src = images[i];
+
+  img.onerror = () => {
+    if(i === 0){
+      fallback.style.display = 'flex';
+      img.style.display = 'none';
+    } else {
+      index--; // step back to last valid page
+    }
+  };
+}
+
+  const prev = document.createElement('button');
+  prev.textContent = '‹';
+  prev.className = 'navBtn left';
+  prev.onclick = () => { if(index > 0){ index--; load(index); } };
+
+  const next = document.createElement('button');
+  next.textContent = '›';
+  next.className = 'navBtn right';
+  next.onclick = () => {
+  if(index < images.length - 1){
+    index++;
+    load(index);
+    }
+  };
+
+  const fallback = document.createElement('div');
+  fallback.className = 'pdfFallback';
+  fallback.style.display = 'none';
+  fallback.textContent = 'Preview unavailable';
+
+  container.append(img, prev, next, fallback);
+  load(index);
+
+  return container;
+}
+
+/* ===== RENDER ===== */
 function render(){
   const sorted = [...ITEMS].sort((a,b)=> new Date(b.date) - new Date(a.date));
   list.innerHTML = '';
-  sorted.forEach(item=> list.appendChild(renderItem(item)));
-}
 
-function renderItem(item){
-  const el = document.createElement('article'); 
-  el.className='item';
+  sorted.forEach(item=>{
+    const el = document.createElement('article');
+    el.className='item';
 
-  const d = new Date(item.date);
-  const dateText = isNaN(d) ? '' : d.toLocaleDateString(undefined, {
-    year:'numeric', month:'long', day:'numeric'
-  });
+    const d = new Date(item.date);
+    const dateText = d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
 
-  const imageUrl = item.url.replace('.pdf', '_p1.jpg');
+    el.innerHTML = `
+      <div class="itemHeader">
+        <h3>${item.title}</h3>
+        <div class="meta">${dateText}</div>
+      </div>
 
-  el.innerHTML = `
-    <div class="itemHeader">
-      <h3>${escapeHTML(item.title)}</h3>
-      <div class="meta">${dateText}</div>
-    </div>
-
-    ${item.articles ? `
       <div class="articleList">
         <div class="articleLabel">Articles</div>
         <ul>
-          ${item.articles.map((a,i)=> `<li>${i+1}. ${escapeHTML(a)}</li>`).join('')}
+          ${item.articles.map((a,i)=> `<li>${i+1}. ${a}</li>`).join('')}
         </ul>
       </div>
-    ` : ''}
 
-    ${item.desc ? `<div class="desc">${escapeHTML(item.desc)}</div>` : ''}
-
-    <div class="pdfPreview">
-      <a href="${item.url}" target="_blank" rel="noopener">
-        <img src="${imageUrl}" 
-             alt="${escapeHTML(item.title)} preview"
-             onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
-      </a>
-      <div class="pdfFallback" style="display:none;">
-        Preview unavailable at the moment, but you can still view or download the PDF.
+      <div class="actions">
+        <a class="btn" href="${item.url}" download>Download PDF</a>
+        <a class="btn" href="${item.url}" target="_blank">Open in New Tab</a>
       </div>
-    </div>
+    `;
 
-    <div class="actions">
-      <a class="btn" href="${item.url}" download>Download PDF</a>
-      <a class="btn" href="${item.url}" target="_blank" rel="noopener">Open in New Tab</a>
-    </div>
-  `;
+    const carousel = createCarousel(getImageList(item), item.title);
+    el.insertBefore(carousel, el.querySelector('.actions'));
 
-  return el;
-}
-
-function escapeHTML(s){
-  return String(s).replace(/[&<>\"']/g, m => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[m]));
+    list.appendChild(el);
+  });
 }
 
 render();
